@@ -1,0 +1,25 @@
+scalar UUID
+
+enum AnimalType {
+  cat
+  dog
+}
+
+type Animal {
+  id: UUID!
+  name: String!
+  type: AnimalType!
+  age: Int!
+  legs: Int!
+  reviews: [Review]
+}
+
+type Review {
+  rate: Float!
+  comment: String
+}
+
+type Query {
+  animals: [Animal]
+  animalsByType(type: AnimalType!): [Animal]
+}
