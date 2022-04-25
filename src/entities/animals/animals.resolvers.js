@@ -10,6 +10,14 @@ module.exports = {
       return animalsModel.filterList({ type: args.type });
     }
   },
+  Mutation: {
+    addAnimal(_, animal) {
+      return animalsModel.add(animal)
+    },
+    addAnimalAsInput(_, { animal }) {
+      return animalsModel.add(animal)
+    }
+  },
   Animal: {
     reviews({ id }) {
       return reviewsModel.listById(id);

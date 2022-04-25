@@ -1,3 +1,5 @@
+const uuid = require('uuid');
+
 const animals = [
   {
     id: 'c54cbd98-be72-11ec-9d64-0242ac120002',
@@ -17,19 +19,6 @@ const animals = [
   },
 ];
 
-const reviews = [
-  {
-    id: 'c54cbd98-be72-11ec-9d64-0242ac120002',
-    rate: 4.5,
-    comment: 'I live this dog'
-  },
-  {
-    id: 'ca94c520-be72-11ec-9d64-0242ac120002',
-    rate: 5,
-    comment: 'Good cat'
-  }
-]
-
 module.exports = {
   list() {
     return animals
@@ -46,9 +35,14 @@ module.exports = {
   },
 
   add(animal) {
-    animals.push({
+    const item = {
       ...animal,
+      id: uuid.v4(),
       reviews: []
-    })
+    }
+  
+    animals.push(item)
+
+    return item
   }
 }

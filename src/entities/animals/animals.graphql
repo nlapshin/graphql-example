@@ -19,12 +19,28 @@ type Review {
   comment: String
 }
 
+input AnimalInput {
+  name: String!, 
+  type: AnimalType!, 
+  age: Int!, 
+  legs: Int!
+}
+
 
 type Query {
   animals: [Animal]
   animalsByType(type: AnimalType!): [Animal]
 }
 
+input AnimalInput {
+  name: String!, 
+  type: AnimalType!, 
+  age: Int!, 
+  legs: Int!
+}
+
+
 type Mutation {
-  addNewAnimal(id: UUID!, name: String!, type: AnimalType!, age: Int!, legs: Int!): Animal
+  addAnimal(name: String!, type: AnimalType!, age: Int!, legs: Int!): Animal
+  addAnimalAsInput(animal: AnimalInput!): Animal
 }
