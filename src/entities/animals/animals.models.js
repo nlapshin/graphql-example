@@ -5,13 +5,7 @@ const animals = [
     type: "cat",
     age: 5,
     legs: 4,
-    catBreed: 'British Shorthair',
-    reviews: [
-      {
-        rate: 5,
-        comment: 'Good cat'
-      }
-    ]
+    catBreed: 'British Shorthair'
   },
   {
     id: 'ca94c520-be72-11ec-9d64-0242ac120002',
@@ -20,14 +14,21 @@ const animals = [
     age: 3,
     legs: 4,
     dogBreed: 'American Hairless Terrier',
-    reviews: [
-      {
-        rate: 4.5,
-        comment: 'I live this dog'
-      }
-    ]
   },
 ];
+
+const reviews = [
+  {
+    id: 'c54cbd98-be72-11ec-9d64-0242ac120002',
+    rate: 4.5,
+    comment: 'I live this dog'
+  },
+  {
+    id: 'ca94c520-be72-11ec-9d64-0242ac120002',
+    rate: 5,
+    comment: 'Good cat'
+  }
+]
 
 module.exports = {
   list() {
@@ -41,6 +42,13 @@ module.exports = {
       }
 
       return true
+    })
+  },
+
+  add(animal) {
+    animals.push({
+      ...animal,
+      reviews: []
     })
   }
 }

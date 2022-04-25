@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "node server.js",
-    "start:debug": "nodemon server.js"
+    "start": "node ./src/server.js",
+    "start:debug": "nodemon ./src/server.js"
   },
   "name": "graphql-example",
   "description": "Graphql example",
