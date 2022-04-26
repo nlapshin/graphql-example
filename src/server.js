@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
+const { ApolloServer, AuthenticationError } = require("apollo-server-express");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 
@@ -22,6 +22,14 @@ async function startApolloServer() {
     dataSources: () => ({
       currencyAPI: new CurrencyAPI()
     }),
+
+    context: ({ req }) => {
+      const token = req.headers.authorization || '';
+
+      if (token !== 'token') {
+        throw new AuthenticationError('permission denied')
+      }
+    }
   });
 
   await server.start();
