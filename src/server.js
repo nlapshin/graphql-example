@@ -4,6 +4,8 @@ const { ApolloServer } = require("apollo-server-express");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 
+const CurrencyAPI = require('./data-source/currency')
+
 const typesArray = loadFilesSync(path.join(__dirname, "**/*.graphql"));
 const resolversArray = loadFilesSync(path.join(__dirname, "**/*.resolvers.js"));
 
@@ -17,6 +19,9 @@ async function startApolloServer() {
 
   const server = new ApolloServer({
     schema,
+    dataSources: () => ({
+      currencyAPI: new CurrencyAPI()
+    }),
   });
 
   await server.start();

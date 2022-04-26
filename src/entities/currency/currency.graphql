@@ -1,0 +1,13 @@
+type Currency {
+  ID: String!
+  NumCode: String!
+  CharCode: String!
+  Nominal: Int!
+  Name: String!
+  Value: Float!
+  Previous: Float!
+}
+
+type Query {
+  currencies: [Currency!]!
+}
