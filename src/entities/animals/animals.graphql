@@ -32,14 +32,6 @@ type Query {
   animalsByType(type: AnimalType!): [Animal]
 }
 
-input AnimalInput {
-  name: String!, 
-  type: AnimalType!, 
-  age: Int!, 
-  legs: Int!
-}
-
-
 type Mutation {
   addAnimal(name: String!, type: AnimalType!, age: Int!, legs: Int!): Animal
   addAnimalAsInput(animal: AnimalInput!): Animal

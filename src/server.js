@@ -3,6 +3,7 @@ const express = require("express");
 const { ApolloServer, AuthenticationError } = require("apollo-server-express");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
+const { MongoClient } = require('mongodb');
 
 const CurrencyAPI = require('./data-source/currency')
 
@@ -11,6 +12,7 @@ const resolversArray = loadFilesSync(path.join(__dirname, "**/*.resolvers.js"));
 
 async function startApolloServer() {
   const app = express();
+  const mongodb = await startMongodb()
 
   const schema = makeExecutableSchema({
     typeDefs: typesArray,
@@ -22,12 +24,15 @@ async function startApolloServer() {
     dataSources: () => ({
       currencyAPI: new CurrencyAPI()
     }),
-
-    context: ({ req }) => {
+    context: function({ req }) {
       const token = req.headers.authorization || '';
 
       if (token !== 'token') {
         throw new AuthenticationError('permission denied')
+      }
+
+      return {
+        mongodb: mongodb
       }
     }
   });
@@ -35,9 +40,28 @@ async function startApolloServer() {
   await server.start();
   server.applyMiddleware({ app, path: "/graphql" });
 
-  app.listen(3000, () => {
-    console.log("Running GraphQL server on 3000 port");
+  app.listen(3010, () => {
+    console.log("Running GraphQL server on 3010 port");
   });
 }
 
+async function startMongodb() {
+  const url = 'mongodb://localhost:27017';
+  const client = new MongoClient(url);
+
+  const dbName = 'test';
+
+  await client.connect();
+  console.log('Connected successfully to server');
+
+  const db = client.db(dbName);
+
+  return db
+}
+
 startApolloServer();
+
+
+// context: ({ req }) => {
+
+// }

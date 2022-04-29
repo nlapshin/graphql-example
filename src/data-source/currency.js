@@ -1,7 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
 module.exports = class CurrencyAPI extends RESTDataSource {
-
   constructor() {
     super();
 
@@ -11,6 +10,5 @@ module.exports = class CurrencyAPI extends RESTDataSource {
 
   async currencies() {
     return this.get(`daily_json.js`);
-
   }
 }

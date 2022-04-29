@@ -1,15 +1,16 @@
 const animalsModel = require("./animals.models");
-const reviewsModel = require("../reviews/reviews.models")
+const reviewsModel = require("../reviews/reviews.models");
 
 module.exports = {
   Query: {
-    animals: () => {
+    animals: async () => {
       return animalsModel.list();
     },
-    animalsByType: (_, args) => {
-      return animalsModel.filterList({ type: args.type });
+    animalsByType: (_, { type }, context) => {
+      return animalsModel.filterList({ type });
     }
   },
+
   Mutation: {
     addAnimal(_, animal) {
       return animalsModel.add(animal)
@@ -18,6 +19,7 @@ module.exports = {
       return animalsModel.add(animal)
     }
   },
+
   Animal: {
     reviews({ id }) {
       return reviewsModel.listById(id);
