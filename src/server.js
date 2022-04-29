@@ -1,8 +1,12 @@
 const path = require("path");
 const express = require("express");
+const { createServer } = require('http');
+const { execute, subscribe } = require("graphql");
+
 const { ApolloServer, AuthenticationError } = require("apollo-server-express");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
+const { SubscriptionServer } = require("subscriptions-transport-ws");
 const { MongoClient } = require('mongodb');
 
 const CurrencyAPI = require('./data-source/currency')
@@ -12,6 +16,7 @@ const resolversArray = loadFilesSync(path.join(__dirname, "**/*.resolvers.js"));
 
 async function startApolloServer() {
   const app = express();
+  const httpServer = createServer(app);
   const mongodb = await startMongodb()
 
   const schema = makeExecutableSchema({
@@ -40,7 +45,12 @@ async function startApolloServer() {
   await server.start();
   server.applyMiddleware({ app, path: "/graphql" });
 
-  app.listen(3010, () => {
+  SubscriptionServer.create(
+    { schema, execute, subscribe },
+    { server: httpServer, path: server.graphqlPath }
+  );
+
+  httpServer.listen(3010, () => {
     console.log("Running GraphQL server on 3010 port");
   });
 }
@@ -60,8 +70,3 @@ async function startMongodb() {
 }
 
 startApolloServer();
-
-
-// context: ({ req }) => {
-
-// }

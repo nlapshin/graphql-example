@@ -36,3 +36,7 @@ type Mutation {
   addAnimal(name: String!, type: AnimalType!, age: Int!, legs: Int!): Animal
   addAnimalAsInput(animal: AnimalInput!): Animal
 }
+
+type Subscription {
+  animalAdded: Animal
+}

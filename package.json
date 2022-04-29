@@ -19,14 +19,19 @@
   "homepage": "https://github.com/nlapshin/graphql-example#readme",
   "dependencies": {
     "@graphql-tools/load-files": "^6.5.3",
-    "@graphql-tools/schema": "^8.3.9",
+    "@graphql-tools/schema": "^8.3.10",
     "apollo-datasource-rest": "^3.5.2",
+    "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",
     "express": "^4.17.3",
     "graphql": "^16.3.0",
+    "graphql-subscriptions": "^2.0.0",
     "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.8.1",
     "mongodb": "^4.5.0",
-    "uuid": "^8.3.2"
+    "subscriptions-transport-ws": "^0.11.0",
+    "uuid": "^8.3.2",
+    "ws": "^8.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
