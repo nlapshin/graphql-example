@@ -29,15 +29,22 @@ async function startApolloServer() {
     dataSources: () => ({
       currencyAPI: new CurrencyAPI()
     }),
+
+    // Middleware глобальный
     context: function({ req }) {
       const token = req.headers.authorization || '';
+
+      console.log('context token', token)
 
       if (token !== 'token') {
         throw new AuthenticationError('permission denied')
       }
 
+      const user = { role: 'anonimous' }
+
       return {
-        mongodb: mongodb
+        mongodb: mongodb,
+        user
       }
     }
   });

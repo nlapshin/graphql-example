@@ -1,13 +1,40 @@
 scalar UUID
 
+# String
+# Int и Float - разные типы.
+# Boolean - булев тип
+# ID - преобразуется в string
+# UUID - уникальный идентификатор.
+
+# Кастомные типы:
+# - можем их создавать
+
+# А где null и undefined?
+
+# undefined - НЕТ!
+# null - есть?
+
+# interface test {
+#   name?: string;
+#   arr: string[];
+# }
+
+# arr: [string] // Как она будет обработана?
+
 enum AnimalType {
   cat
   dog
 }
 
+# name: String // strict string
+# name: String! // string or null
+# name: [String] // строгий массив строгих строк
+# name: [String!] // строгий массив строк или null
+# name: [String!]! // массив или null из строк или null
+
 type Animal {
   id: UUID!
-  name: String!
+  name: String
   type: AnimalType!
   age: Int!
   legs: Int!
