@@ -1,4 +1,4 @@
-const { RESTDataSource } = require('apollo-datasource-rest');
+const { RESTDataSource } = require('@apollo/datasource-rest');
 
 module.exports = class CurrencyAPI extends RESTDataSource {
   constructor() {

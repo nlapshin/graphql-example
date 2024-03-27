@@ -1,0 +1,17 @@
+scalar UUID
+
+type User {
+  _id: UUID!
+  name: String!
+  email: String!
+  detail: UserDetail!
+}
+
+type UserDetail {
+  _id: UUID!
+  detail: String!
+}
+
+type Query {
+  users: [User]
+}
